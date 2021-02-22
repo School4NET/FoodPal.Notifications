@@ -4,6 +4,9 @@ using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
 using MassTransit;
 using FoodPal.Notifications.Processor.Consumers;
+using FoodPal.Notifications.Data;
+using FoodPal.Notifications.Data.Abstractions;
+using FoodPal.Notifications.Common.Settings;
 
 namespace FoodPal.Notifications.Processor
 {
@@ -17,13 +20,19 @@ namespace FoodPal.Notifications.Processor
                 .RunConsoleAsync();
         }
 
-        private static void ConfigureAppConfiguration(HostBuilderContext arg1, IConfigurationBuilder arg2)
-        { 
+        private static void ConfigureAppConfiguration(HostBuilderContext hostBuilder, IConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.SetBasePath(hostBuilder.HostingEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json");
         }
 
         private static void ConfigureServices(HostBuilderContext hostBuilder, IServiceCollection services)
         {
             services.AddHostedService<MassTransitConsoleHostedService>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.Configure<DbSettings>(hostBuilder.Configuration.GetSection("ConnectionStrings"));
+            services.AddScoped<NotificationDbContext>();
 
             services.AddScoped<NewUserAddedConsumer>();
 
