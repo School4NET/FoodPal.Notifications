@@ -8,7 +8,7 @@ namespace FoodPal.Notifications.Processor.Consumers
     {
         public async Task Consume(ConsumeContext<INewUserAdded> context)
         {
-            var message = context.Message;
+           var message = context.Message;
         }
     }
 }

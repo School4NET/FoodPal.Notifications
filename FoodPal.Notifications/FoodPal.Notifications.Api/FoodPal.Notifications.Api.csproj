@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>e2d9caa4-b9dc-40f9-9997-c942c0f9b523</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodPal.Contracts\FoodPal.Contracts.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Common\FoodPal.Notifications.Common.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Dto\FoodPal.Notifications.Dto.csproj" />
   </ItemGroup>
 

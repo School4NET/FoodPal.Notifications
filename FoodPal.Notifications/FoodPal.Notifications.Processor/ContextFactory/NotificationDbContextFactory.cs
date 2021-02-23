@@ -9,7 +9,10 @@ namespace FoodPal.Notifications.Processor.ContextFactory
     {
         public NotificationDbContext CreateDbContext(string[] args)
         {
-            var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+            var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .AddJsonFile("appsettings.Development.json")
+                    .Build();
 
             var connectionString = configuration.GetSection("ConnectionStrings:DbConnection").Value;
 

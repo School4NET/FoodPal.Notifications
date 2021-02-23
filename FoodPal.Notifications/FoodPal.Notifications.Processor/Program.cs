@@ -10,24 +10,32 @@ using FoodPal.Notifications.Common.Settings;
 
 namespace FoodPal.Notifications.Processor
 {
-    public class Program
+    class Program
     {
+        static IConfiguration Configuration;
+
         static async Task Main(string[] args)
         {
             await Host.CreateDefaultBuilder(args)
-                .ConfigureServices(ConfigureServices)
                 .ConfigureAppConfiguration(ConfigureAppConfiguration)
+                .ConfigureServices(ConfigureServices)
                 .RunConsoleAsync();
         }
 
         private static void ConfigureAppConfiguration(HostBuilderContext hostBuilder, IConfigurationBuilder configurationBuilder)
-        {
+        { 
             configurationBuilder.SetBasePath(hostBuilder.HostingEnvironment.ContentRootPath)
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Development.json")
+                .AddUserSecrets<Program>();
+
+            Configuration = configurationBuilder.Build();
         }
 
         private static void ConfigureServices(HostBuilderContext hostBuilder, IServiceCollection services)
-        {
+        { 
+            var messageBrokerSettings = Configuration.GetSection("MessageBroker").Get<MessageBrokerSettings>();
+
             services.AddHostedService<MassTransitConsoleHostedService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -39,7 +47,7 @@ namespace FoodPal.Notifications.Processor
             services.AddMassTransit(configuration => {
                 configuration.UsingAzureServiceBus((context, config) =>
                 {
-                    config.Host("Endpoint=sb://school4net.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=uAKNEmB5x9Me8/Fl2t6Os6I9EJcRANHUE0jfnxk3phU=");
+                    config.Host(messageBrokerSettings.ServiceBusHost); 
 
                     config.ReceiveEndpoint("notifications-users-queue", e =>
                     {

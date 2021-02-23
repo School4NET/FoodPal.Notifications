@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MassTransit;
+using FoodPal.Notifications.Common.Settings;
 
 namespace FoodPal.Notifications.Api
 {
@@ -19,13 +20,15 @@ namespace FoodPal.Notifications.Api
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        { 
+            var messageBrokerSettings = Configuration.GetSection("MessageBroker").Get<MessageBrokerSettings>(); 
+
             services.AddMassTransit(configure => 
             {
                 configure.SetKebabCaseEndpointNameFormatter();
                 configure.UsingAzureServiceBus((context, config) =>
                 {
-                    config.Host("Endpoint=sb://school4net.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=uAKNEmB5x9Me8/Fl2t6Os6I9EJcRANHUE0jfnxk3phU=");
+                    config.Host(messageBrokerSettings.ServiceBusHost);
                     config.ConfigureEndpoints(context);
                 });
             });
