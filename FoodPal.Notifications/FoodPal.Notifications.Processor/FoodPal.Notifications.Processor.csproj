@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodPal.Contracts\FoodPal.Contracts.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Common\FoodPal.Notifications.Common.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Data.Abstractions\FoodPal.Notifications.Data.Abstractions.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Data\FoodPal.Notifications.Data.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Enums\FoodPal.Notifications.Common.csproj" />

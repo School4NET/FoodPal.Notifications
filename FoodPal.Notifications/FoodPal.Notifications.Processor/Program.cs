@@ -10,7 +10,7 @@ using FoodPal.Notifications.Common.Settings;
 
 namespace FoodPal.Notifications.Processor
 {
-    class Program
+    public class Program
     {
         static async Task Main(string[] args)
         {
