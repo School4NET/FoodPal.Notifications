@@ -3,10 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
 using MassTransit;
-using FoodPal.Notifications.Processor.Consumers;
 using FoodPal.Notifications.Data;
 using FoodPal.Notifications.Data.Abstractions;
 using FoodPal.Notifications.Common.Settings;
+using FoodPal.Notifications.Mappers;
+using FluentValidation;
+using FoodPal.Notifications.Validations;
+using FoodPal.Notifications.Processor.Messages.Consumers;
 
 namespace FoodPal.Notifications.Processor
 {
@@ -37,6 +40,10 @@ namespace FoodPal.Notifications.Processor
             var messageBrokerSettings = Configuration.GetSection("MessageBroker").Get<MessageBrokerSettings>();
 
             services.AddHostedService<MassTransitConsoleHostedService>();
+
+            services.AddValidatorsFromAssembly(typeof(InternalValidator<>).Assembly);
+
+            services.AddAutoMapper(typeof(InternalProfile).Assembly);
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.Configure<DbSettings>(hostBuilder.Configuration.GetSection("ConnectionStrings"));

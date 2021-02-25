@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FoodPal.Notifications.Dto\FoodPal.Notifications.Dto.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Application\FoodPal.Notifications.Application.csproj" />
   </ItemGroup>
 
 </Project>

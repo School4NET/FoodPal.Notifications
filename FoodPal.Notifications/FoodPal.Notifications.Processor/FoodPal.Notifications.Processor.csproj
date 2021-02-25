@@ -25,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.5.1" />
     <PackageReference Include="MassTransit" Version="7.1.5" />
     <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="7.1.5" />
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.1.5" />
@@ -39,9 +42,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodPal.Contracts\FoodPal.Contracts.csproj" />
+    <ProjectReference Include="..\FoodPal.Notification.Messages\FoodPal.Notification.Messages.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Common\FoodPal.Notifications.Common.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Data.Abstractions\FoodPal.Notifications.Data.Abstractions.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Data\FoodPal.Notifications.Data.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Mappers\FoodPal.Notifications.Mappers.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Validations\FoodPal.Notifications.Validations.csproj" />
   </ItemGroup>
 
 </Project>
