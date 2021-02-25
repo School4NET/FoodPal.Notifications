@@ -39,6 +39,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodPal.Notification.Messag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodPal.Notifications.Validations", "FoodPal.Notifications.Validations\FoodPal.Notifications.Validations.csproj", "{3C0832D8-811A-44ED-A9A2-1F9AC3B24E55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodPal.Notification.Service.Abstractions", "FoodPal.Notification.Service\FoodPal.Notification.Service.Abstractions.csproj", "{FB88BF11-3A1F-48E5-9FDA-444502EB8123}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodPal.Notification.Service.Email.Abstractions", "FoodPal.Notification.Service.Email\FoodPal.Notification.Service.Email.Abstractions.csproj", "{108158AF-80F9-4931-BD7A-5ACFF8E7F509}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodPal.Notifications.Service", "FoodPal.Notifications.Service\FoodPal.Notifications.Service.csproj", "{36D496E7-0693-4040-828B-780807FDA4AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodPal.Notifications.Service.Email", "FoodPal.Notifications.Service.Email\FoodPal.Notifications.Service.Email.csproj", "{4756D13D-F2E6-4343-94AD-7863D6E9FFB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +101,22 @@ Global
 		{3C0832D8-811A-44ED-A9A2-1F9AC3B24E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C0832D8-811A-44ED-A9A2-1F9AC3B24E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C0832D8-811A-44ED-A9A2-1F9AC3B24E55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB88BF11-3A1F-48E5-9FDA-444502EB8123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB88BF11-3A1F-48E5-9FDA-444502EB8123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB88BF11-3A1F-48E5-9FDA-444502EB8123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB88BF11-3A1F-48E5-9FDA-444502EB8123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{108158AF-80F9-4931-BD7A-5ACFF8E7F509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{108158AF-80F9-4931-BD7A-5ACFF8E7F509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{108158AF-80F9-4931-BD7A-5ACFF8E7F509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{108158AF-80F9-4931-BD7A-5ACFF8E7F509}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36D496E7-0693-4040-828B-780807FDA4AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36D496E7-0693-4040-828B-780807FDA4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36D496E7-0693-4040-828B-780807FDA4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36D496E7-0693-4040-828B-780807FDA4AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4756D13D-F2E6-4343-94AD-7863D6E9FFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4756D13D-F2E6-4343-94AD-7863D6E9FFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4756D13D-F2E6-4343-94AD-7863D6E9FFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4756D13D-F2E6-4343-94AD-7863D6E9FFB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +134,10 @@ Global
 		{D85141E7-B146-4258-B4DC-B6E1F56B493C} = {950AF66A-7F3B-4B38-973C-B29D0C7A0A4F}
 		{237755B7-C2DB-4B1E-9D18-2FE76E95A3DA} = {5CE29DD5-FF44-4E58-B16B-B4F932C3263F}
 		{3C0832D8-811A-44ED-A9A2-1F9AC3B24E55} = {63D8B806-1E5F-40FB-B14B-8057576EF92D}
+		{FB88BF11-3A1F-48E5-9FDA-444502EB8123} = {950AF66A-7F3B-4B38-973C-B29D0C7A0A4F}
+		{108158AF-80F9-4931-BD7A-5ACFF8E7F509} = {950AF66A-7F3B-4B38-973C-B29D0C7A0A4F}
+		{36D496E7-0693-4040-828B-780807FDA4AD} = {5CE29DD5-FF44-4E58-B16B-B4F932C3263F}
+		{4756D13D-F2E6-4343-94AD-7863D6E9FFB6} = {5CE29DD5-FF44-4E58-B16B-B4F932C3263F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF7296BF-C825-41B2-9183-9342839910AC}

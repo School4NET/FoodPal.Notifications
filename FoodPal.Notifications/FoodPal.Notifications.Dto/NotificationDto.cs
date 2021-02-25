@@ -12,8 +12,7 @@ namespace FoodPal.Notifications.Dto
         public int UserId { get; set; } 
         public string CreateBy { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTimeOffset CreateAt { get; set; }
-        public DateTimeOffset ModifiedAt { get; set; }
+        public int Type { get; set; }
         public string Info { get; set; }
     }
 }

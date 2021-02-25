@@ -10,6 +10,13 @@ using FoodPal.Notifications.Mappers;
 using FluentValidation;
 using FoodPal.Notifications.Validations;
 using FoodPal.Notifications.Processor.Messages.Consumers;
+using MediatR;
+using FoodPal.Notifications.Application.Handlers;
+using FoodPal.Notification.Messages;
+using FoodPal.Notification.Service;
+using FoodPal.Notifications.Service;
+using FoodPal.Notifications.Service.Email;
+using FoodPal.Notification.Service.Email;
 
 namespace FoodPal.Notifications.Processor
 {
@@ -43,13 +50,19 @@ namespace FoodPal.Notifications.Processor
 
             services.AddValidatorsFromAssembly(typeof(InternalValidator<>).Assembly);
 
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IEmailNotificationService, EmailNotificationService>();
+
             services.AddAutoMapper(typeof(InternalProfile).Assembly);
+            services.AddMediatR(typeof(NewUserAddedHandler).Assembly);
+            services.AddMediatR(typeof(NewNotificationAddedHandler).Assembly);
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.Configure<DbSettings>(hostBuilder.Configuration.GetSection("ConnectionStrings"));
             services.AddScoped<NotificationDbContext>();
 
             services.AddScoped<NewUserAddedConsumer>();
+            services.AddScoped<NewNotificationAddedConsumer>();
 
             services.AddMassTransit(configuration => {
                 configuration.UsingAzureServiceBus((context, config) =>
@@ -60,6 +73,7 @@ namespace FoodPal.Notifications.Processor
                     {
                         // register consumer
                         e.Consumer(() => context.GetService<NewUserAddedConsumer>());
+                        e.Consumer(() => context.GetService<NewNotificationAddedConsumer>()); 
                     });
                 });
             });

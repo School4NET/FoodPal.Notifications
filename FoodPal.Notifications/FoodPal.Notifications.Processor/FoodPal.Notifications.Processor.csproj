@@ -31,6 +31,7 @@
     <PackageReference Include="MassTransit" Version="7.1.5" />
     <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="7.1.5" />
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.1.5" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -43,10 +44,14 @@
   <ItemGroup>
     <ProjectReference Include="..\FoodPal.Contracts\FoodPal.Contracts.csproj" />
     <ProjectReference Include="..\FoodPal.Notification.Messages\FoodPal.Notification.Messages.csproj" />
+    <ProjectReference Include="..\FoodPal.Notification.Service.Email\FoodPal.Notification.Service.Email.Abstractions.csproj" />
+    <ProjectReference Include="..\FoodPal.Notification.Service\FoodPal.Notification.Service.Abstractions.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Common\FoodPal.Notifications.Common.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Data.Abstractions\FoodPal.Notifications.Data.Abstractions.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Data\FoodPal.Notifications.Data.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Mappers\FoodPal.Notifications.Mappers.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Service.Email\FoodPal.Notifications.Service.Email.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Service\FoodPal.Notifications.Service.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Validations\FoodPal.Notifications.Validations.csproj" />
   </ItemGroup>
 

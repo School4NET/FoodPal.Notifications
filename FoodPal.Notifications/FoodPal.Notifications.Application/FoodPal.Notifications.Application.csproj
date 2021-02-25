@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FoodPal.Notification.Service\FoodPal.Notification.Service.Abstractions.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Data.Abstractions\FoodPal.Notifications.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Domain\FoodPal.Notifications.Domain.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Dto\FoodPal.Notifications.Dto.csproj" />
   </ItemGroup>
 

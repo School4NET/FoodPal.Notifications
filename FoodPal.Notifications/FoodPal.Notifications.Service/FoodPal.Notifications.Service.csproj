@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodPal.Notification.Service.Email\FoodPal.Notification.Service.Email.Abstractions.csproj" />
+    <ProjectReference Include="..\FoodPal.Notification.Service\FoodPal.Notification.Service.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
