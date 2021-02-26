@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodPal.Notifications.Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,7 +13,7 @@ namespace FoodPal.Notifications.Dto
         public int UserId { get; set; } 
         public string CreateBy { get; set; }
         public string ModifiedBy { get; set; }
-        public int Type { get; set; }
+        public NotificationTypeEnum Type { get; set; }
         public string Info { get; set; }
     }
 }

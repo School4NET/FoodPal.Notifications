@@ -8,8 +8,4 @@
     <PackageReference Include="FluentValidation" Version="9.5.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FoodPal.Notifications.Dto\FoodPal.Notifications.Dto.csproj" />
-  </ItemGroup>
-
 </Project>

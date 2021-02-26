@@ -10,9 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FoodPal.Notification.Service.Email\FoodPal.Notification.Service.Email.Abstractions.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Common\FoodPal.Notifications.Common.csproj" />
     <ProjectReference Include="..\FoodPal.Notifications.Dto\FoodPal.Notifications.Dto.csproj" />
+    <ProjectReference Include="..\FoodPal.Notifications.Service.Email.Abstractions\FoodPal.Notifications.Service.Email.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

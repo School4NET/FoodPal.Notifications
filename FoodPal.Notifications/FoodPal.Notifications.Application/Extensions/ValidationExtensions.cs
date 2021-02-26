@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodPal.Notifications.Common.Extensions
+namespace FoodPal.Notifications.Application.Extensions
 {
     public static class ValidationExtensions 
     {

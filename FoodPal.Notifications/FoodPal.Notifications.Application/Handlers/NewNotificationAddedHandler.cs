@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using FoodPal.Notification.Service;
-using FoodPal.Notifications.Common.Extensions;
+using FoodPal.Notifications.Application.Extensions;
 using FoodPal.Notifications.Data.Abstractions;
 using FoodPal.Notifications.Domain;
 using FoodPal.Notifications.Dto.Exceptions;
