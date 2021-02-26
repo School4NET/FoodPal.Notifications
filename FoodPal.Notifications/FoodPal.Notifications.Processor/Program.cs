@@ -43,8 +43,9 @@ namespace FoodPal.Notifications.Processor
         }
 
         private static void ConfigureServices(HostBuilderContext hostBuilder, IServiceCollection services)
-        { 
-            var messageBrokerSettings = Configuration.GetSection("MessageBroker").Get<MessageBrokerSettings>();
+        {
+            var messageBrokerSettings = Configuration.GetSection("MessageBroker").Get<MessageBrokerSettings>(); 
+            services.Configure<NotificationServiceSettings>(hostBuilder.Configuration.GetSection("NotificationServiceSettings"));
 
             services.AddHostedService<MassTransitConsoleHostedService>();
 
@@ -54,8 +55,7 @@ namespace FoodPal.Notifications.Processor
             services.AddScoped<IEmailNotificationService, EmailNotificationService>();
 
             services.AddAutoMapper(typeof(InternalProfile).Assembly);
-            services.AddMediatR(typeof(NewUserAddedHandler).Assembly);
-            services.AddMediatR(typeof(NewNotificationAddedHandler).Assembly);
+            services.AddMediatR(typeof(NewUserAddedHandler).Assembly); 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.Configure<DbSettings>(hostBuilder.Configuration.GetSection("ConnectionStrings"));

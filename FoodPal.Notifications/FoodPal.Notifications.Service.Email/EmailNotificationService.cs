@@ -4,19 +4,25 @@ using System;
 using System.Threading.Tasks;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Microsoft.Extensions.Options;
+using FoodPal.Notifications.Common.Settings;
 
 namespace FoodPal.Notifications.Service.Email
 {
     public class EmailNotificationService : IEmailNotificationService
     {
-        public string Key = "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";
-        public string From = "foodpal.services@gmail.com";
+        private readonly NotificationServiceSettings _notificationService;
+
+        public EmailNotificationService(IOptions<NotificationServiceSettings> options)
+        {
+            this._notificationService = options.Value;
+        }
 
         public async Task<bool> Send(NotificationServiceDto notificationServiceDto)
         {
-            var client = new SendGridClient(this.Key);
+            var client = new SendGridClient(this._notificationService.ApiKey);
             var sendGridMessage = MailHelper.CreateSingleEmail(
-                        new EmailAddress(this.From),
+                        new EmailAddress(this._notificationService.From),
                         new EmailAddress(notificationServiceDto.Email),
                         notificationServiceDto.Subject,
                         "",

@@ -39,7 +39,6 @@ namespace FoodPal.Notifications.Application.Handlers
             this._unitOfWork.GetRepository<Domain.Notification>().Create(notificationModel);
             var saved = await this._unitOfWork.SaveChangesAsnyc();
 
-            // TODO: refactor this
             var userModel = await this._unitOfWork.GetRepository<User>().FindByIdAsync(notificationModel.UserId);
             var notificationServiceDto = new NotificationServiceDto
             {
