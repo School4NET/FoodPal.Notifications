@@ -41,7 +41,7 @@ namespace FoodPal.Notifications.Data
             {
                 foreach (var include in toInclude)
                 {
-                    query.Include(include);
+                    query = query.Include(include);
                 }
             }
 
