@@ -49,11 +49,9 @@ namespace FoodPal.Notifications.Application.Handlers
             };
             var sent = await this._notificationService.Send(notificationModel.Type, notificationServiceDto);
 
-            if (sent)
-            {
-                notificationModel.Status = Common.Enums.NotificationStatusEnum.Viewed;
-                await this._unitOfWork.SaveChangesAsnyc();
-            }
+            // change the notification status
+            notificationModel.Status = sent ? Common.Enums.NotificationStatusEnum.Viewed : Common.Enums.NotificationStatusEnum.Error;
+            await this._unitOfWork.SaveChangesAsnyc();
 
             return saved && sent;
         }
