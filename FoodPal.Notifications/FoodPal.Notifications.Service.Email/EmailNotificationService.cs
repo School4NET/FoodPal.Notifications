@@ -1,4 +1,4 @@
-﻿using FoodPal.Notification.Service.Email;
+﻿using FoodPal.Notifications.Service.Email;
 using FoodPal.Notifications.Dto.Intern;
 using System;
 using System.Threading.Tasks;

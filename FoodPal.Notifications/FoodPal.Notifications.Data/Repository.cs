@@ -2,6 +2,7 @@
 using FoodPal.Notifications.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -32,9 +33,17 @@ namespace FoodPal.Notifications.Data
             this.Delete(await this._dbSet.FirstOrDefaultAsync(x => x.Id == id));
         }
 
-        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> findCriteria)
+        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> findCriteria, List<string> toInclude = null)
         { 
             var query = this._dbSet.Where(findCriteria);
+
+            if (toInclude is not null)
+            {
+                foreach (var include in toInclude)
+                {
+                    query.Include(include);
+                }
+            }
 
             return query;
         }

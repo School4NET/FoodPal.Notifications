@@ -3,7 +3,7 @@ using FoodPal.Notifications.Dto.Intern;
 using System;
 using System.Threading.Tasks;
 
-namespace FoodPal.Notification.Service
+namespace FoodPal.Notifications.Service
 {
     public interface INotificationService
     {

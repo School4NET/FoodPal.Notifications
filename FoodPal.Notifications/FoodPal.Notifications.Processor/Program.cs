@@ -12,11 +12,11 @@ using FoodPal.Notifications.Validations;
 using FoodPal.Notifications.Processor.Messages.Consumers;
 using MediatR;
 using FoodPal.Notifications.Application.Handlers;
-using FoodPal.Notification.Messages;
-using FoodPal.Notification.Service;
+using FoodPal.Notifications.Messages;
+using FoodPal.Notifications.Service;
 using FoodPal.Notifications.Service;
 using FoodPal.Notifications.Service.Email;
-using FoodPal.Notification.Service.Email;
+using FoodPal.Notifications.Service.Email;
 
 namespace FoodPal.Notifications.Processor
 {

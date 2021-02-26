@@ -1,5 +1,5 @@
-﻿using FoodPal.Notification.Service;
-using FoodPal.Notification.Service.Email;
+﻿using FoodPal.Notifications.Service;
+using FoodPal.Notifications.Service.Email;
 using FoodPal.Notifications.Common.Enums;
 using FoodPal.Notifications.Dto.Intern;
 using System;

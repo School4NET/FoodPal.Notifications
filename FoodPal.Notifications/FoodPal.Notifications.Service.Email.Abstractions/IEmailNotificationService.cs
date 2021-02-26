@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace FoodPal.Notification.Service.Email
+namespace FoodPal.Notifications.Service.Email
 {
     public interface IEmailNotificationService
     {

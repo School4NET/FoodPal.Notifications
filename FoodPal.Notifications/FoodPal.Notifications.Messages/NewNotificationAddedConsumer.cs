@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodPal.Notification.Messages
+namespace FoodPal.Notifications.Messages
 {
     public class NewNotificationAddedConsumer : IConsumer<INewNotificationAdded>
     {
