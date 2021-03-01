@@ -2,7 +2,7 @@
 using System;
 namespace FoodPal.Contracts
 {
-    public interface INewNotificationAdded
+    public interface INewNotificationAddedEvent
     {
         public int Id { get; set; }
         public string Title { get; set; }

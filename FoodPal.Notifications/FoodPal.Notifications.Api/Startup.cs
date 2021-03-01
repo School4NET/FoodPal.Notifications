@@ -4,8 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using MassTransit;
+using MassTransit; 
 using FoodPal.Notifications.Common.Settings;
+using FoodPal.Contracts;
+using FoodPal.Notifications.Api.Filters;
 
 namespace FoodPal.Notifications.Api
 {
@@ -21,7 +23,7 @@ namespace FoodPal.Notifications.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         { 
-            var messageBrokerSettings = Configuration.GetSection("MessageBroker").Get<MessageBrokerSettings>(); 
+            var messageBrokerSettings = Configuration.GetSection("MessageBroker").Get<MessageBrokerSettings>();
 
             services.AddMassTransit(configure => 
             {
@@ -31,9 +33,12 @@ namespace FoodPal.Notifications.Api
                     config.Host(messageBrokerSettings.ServiceBusHost);
                     config.ConfigureEndpoints(context);
                 });
-            });
 
-            services.AddControllers();
+                configure.AddRequestClient<IUserNotificationsRequested>();
+            });
+            services.AddMassTransitHostedService();
+
+            services.AddControllers(configure => configure.Filters.Add(typeof(ExceptionFilter)));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FoodPal.Notifications.Api", Version = "v1" });
@@ -58,7 +63,7 @@ namespace FoodPal.Notifications.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers(); 
             });
         }
     }

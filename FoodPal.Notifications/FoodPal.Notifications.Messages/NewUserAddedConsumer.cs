@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using FoodPal.Contracts;
-using FoodPal.Notifications.Dto.Exceptions;
+using FoodPal.Notifications.Common.Exceptions;
 using FoodPal.Notifications.Processor.Commands;
 using MassTransit;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
@@ -11,29 +12,33 @@ using System.Threading.Tasks;
 
 namespace FoodPal.Notifications.Processor.Messages.Consumers
 {
-    public class NewUserAddedConsumer : IConsumer<INewUserAdded>
-    { 
-        private readonly IMediator _mediator;
+    public class NewUserAddedConsumer : IConsumer<INewUserAddedEvent>
+    {  
         private readonly IMapper _mapper;
         private readonly ILogger<NewUserAddedConsumer> _logger;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public NewUserAddedConsumer(IMediator mediator, IMapper mapper, ILogger<NewUserAddedConsumer> logger)
-        { 
-            this._mediator = mediator;
+        public NewUserAddedConsumer(IMediator mediator, IMapper mapper, ILogger<NewUserAddedConsumer> logger, IServiceScopeFactory serviceScopeFactory)
+        {  
             this._mapper = mapper;
             this._logger = logger;
+            this._serviceScopeFactory = serviceScopeFactory;
         }
 
-        public async Task Consume(ConsumeContext<INewUserAdded> context)
+        public async Task Consume(ConsumeContext<INewUserAddedEvent> context)
         {
             try
             {
                 var message = context.Message;
 
-                var command = this._mapper.Map<NewUserAddedCommand>(message);
+                var command = this._mapper.Map<NewUserAddedCommand>(message); 
 
-                // TODO: refactor this 
-                await this._mediator.Send(command);
+                using (var scope = this._serviceScopeFactory.CreateScope())
+                {
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
+                    await mediator.Send(command);
+                }
             }
             catch (ValidationsException e)
             {

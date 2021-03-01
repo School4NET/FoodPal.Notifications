@@ -17,6 +17,7 @@ using FoodPal.Notifications.Service;
 using FoodPal.Notifications.Service;
 using FoodPal.Notifications.Service.Email;
 using FoodPal.Notifications.Service.Email;
+using FoodPal.Notifications.Processor.Workers;
 
 namespace FoodPal.Notifications.Processor
 {
@@ -48,6 +49,7 @@ namespace FoodPal.Notifications.Processor
             services.Configure<NotificationServiceSettings>(hostBuilder.Configuration.GetSection("NotificationServiceSettings"));
 
             services.AddHostedService<MassTransitConsoleHostedService>();
+            services.AddHostedService<NotificationRetryHostedService>();
 
             services.AddValidatorsFromAssembly(typeof(InternalValidator<>).Assembly);
 
@@ -55,7 +57,7 @@ namespace FoodPal.Notifications.Processor
             services.AddScoped<IEmailNotificationService, EmailNotificationService>();
 
             services.AddAutoMapper(typeof(InternalProfile).Assembly);
-            services.AddMediatR(typeof(NewUserAddedHandler).Assembly); 
+            services.AddMediatR(typeof(NewUserAddedCommandHandler).Assembly); 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.Configure<DbSettings>(hostBuilder.Configuration.GetSection("ConnectionStrings"));
@@ -63,6 +65,9 @@ namespace FoodPal.Notifications.Processor
 
             services.AddScoped<NewUserAddedConsumer>();
             services.AddScoped<NewNotificationAddedConsumer>();
+            services.AddScoped<UserUpdatedConsumer>();
+            services.AddScoped<NotificationViewedConsumer>();
+            services.AddScoped<UserNotificationsRequestedConsumer>();
 
             services.AddMassTransit(configuration => {
                 configuration.UsingAzureServiceBus((context, config) =>
@@ -71,10 +76,18 @@ namespace FoodPal.Notifications.Processor
 
                     config.ReceiveEndpoint("notifications-users-queue", e =>
                     {
-                        // register consumer
-                        e.Consumer(() => context.GetService<NewUserAddedConsumer>());
-                        e.Consumer(() => context.GetService<NewNotificationAddedConsumer>()); 
+                        // register consumer 
+                        e.Consumer(() => context.GetService<NewUserAddedConsumer>()); 
+                        e.Consumer(() => context.GetService<UserUpdatedConsumer>());
                     });
+
+                    config.ReceiveEndpoint("notifications-queue", e =>
+                    {
+                        // register consumer 
+                        e.Consumer(() => context.GetService<NewNotificationAddedConsumer>());
+                        e.Consumer(() => context.GetService<NotificationViewedConsumer>());
+                        e.Consumer(() => context.GetService<UserNotificationsRequestedConsumer>());
+                    }); 
                 });
             });
         }

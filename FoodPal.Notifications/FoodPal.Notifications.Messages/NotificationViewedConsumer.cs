@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FoodPal.Contracts;
+using FoodPal.Notifications.Application.Commands;
 using FoodPal.Notifications.Common.Exceptions;
 using FoodPal.Notifications.Processor.Commands;
 using MassTransit;
@@ -14,26 +15,26 @@ using System.Threading.Tasks;
 
 namespace FoodPal.Notifications.Messages
 {
-    public class NewNotificationAddedConsumer : IConsumer<INewNotificationAddedEvent>
+    public class NotificationViewedConsumer : IConsumer<INotificationViewedEvent>
     { 
         private readonly IMapper _mapper;
-        private readonly ILogger<NewNotificationAddedConsumer> _logger;
+        private readonly ILogger<NotificationViewedConsumer> _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public NewNotificationAddedConsumer(IMapper mapper, ILogger<NewNotificationAddedConsumer> logger, IServiceScopeFactory serviceScopeFactory)
+        public NotificationViewedConsumer(IMapper mapper, ILogger<NotificationViewedConsumer> logger, IServiceScopeFactory serviceScopeFactory)
         { 
             this._mapper = mapper;
             this._logger = logger;
             this._serviceScopeFactory = serviceScopeFactory;
         }
 
-        public async Task Consume(ConsumeContext<INewNotificationAddedEvent> context)
+        public async Task Consume(ConsumeContext<INotificationViewedEvent> context)
         {
             try
             {
                 var message = context.Message;
 
-                var command = this._mapper.Map<NewNotificationAddedCommand>(message);
+                var command = this._mapper.Map<NotificationViewedCommand>(message);
                  
                 using (var scope = this._serviceScopeFactory.CreateScope())
                 {

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using FoodPal.Notifications.Dto.Exceptions;
+using FoodPal.Notifications.Common.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

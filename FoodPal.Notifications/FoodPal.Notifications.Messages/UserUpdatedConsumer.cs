@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FoodPal.Contracts;
+using FoodPal.Notifications.Application.Commands;
 using FoodPal.Notifications.Common.Exceptions;
 using FoodPal.Notifications.Processor.Commands;
 using MassTransit;
@@ -7,34 +8,32 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodPal.Notifications.Messages
+namespace FoodPal.Notifications.Processor.Messages.Consumers
 {
-    public class NewNotificationAddedConsumer : IConsumer<INewNotificationAddedEvent>
-    { 
+    public class UserUpdatedConsumer : IConsumer<IUserUpdatedEvent>
+    {  
         private readonly IMapper _mapper;
-        private readonly ILogger<NewNotificationAddedConsumer> _logger;
+        private readonly ILogger<UserUpdatedConsumer> _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public NewNotificationAddedConsumer(IMapper mapper, ILogger<NewNotificationAddedConsumer> logger, IServiceScopeFactory serviceScopeFactory)
-        { 
+        public UserUpdatedConsumer(IMapper mapper, ILogger<UserUpdatedConsumer> logger, IServiceScopeFactory serviceScopeFactory)
+        {  
             this._mapper = mapper;
             this._logger = logger;
             this._serviceScopeFactory = serviceScopeFactory;
         }
 
-        public async Task Consume(ConsumeContext<INewNotificationAddedEvent> context)
+        public async Task Consume(ConsumeContext<IUserUpdatedEvent> context)
         {
             try
             {
                 var message = context.Message;
 
-                var command = this._mapper.Map<NewNotificationAddedCommand>(message);
-                 
+                var command = this._mapper.Map<UserUpdatedCommand>(message); 
+
                 using (var scope = this._serviceScopeFactory.CreateScope())
                 {
                     var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
@@ -50,8 +49,8 @@ namespace FoodPal.Notifications.Messages
                 this._logger.LogError(e, errors);
             }
             catch (Exception e)
-            {
-                this._logger.LogError(e, $"Something went wrong in {nameof(NewNotificationAddedConsumer)}");
+            { 
+                this._logger.LogError(e, $"Something went wrong in {nameof(UserUpdatedConsumer)}");
             }
         }
     }

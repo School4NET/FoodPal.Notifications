@@ -3,25 +3,25 @@ using FluentValidation;
 using FoodPal.Notifications.Service;
 using FoodPal.Notifications.Application.Extensions;
 using FoodPal.Notifications.Data.Abstractions;
-using FoodPal.Notifications.Domain;
-using FoodPal.Notifications.Dto.Exceptions;
+using FoodPal.Notifications.Domain; 
 using FoodPal.Notifications.Dto.Intern;
 using FoodPal.Notifications.Processor.Commands;
 using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System;
 
 namespace FoodPal.Notifications.Application.Handlers
 {
-    public class NewNotificationAddedHandler : IRequestHandler<NewNotificationAddedCommand, bool>
+    public class NewNotificationAddedCommandHandler : IRequestHandler<NewNotificationAddedCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IValidator<NewNotificationAddedCommand> _validator;
         private readonly INotificationService _notificationService;
 
-        public NewNotificationAddedHandler(IUnitOfWork unitOfWork, IMapper mapper, IValidator<NewNotificationAddedCommand> validator, INotificationService notificationService)
+        public NewNotificationAddedCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IValidator<NewNotificationAddedCommand> validator, INotificationService notificationService)
         {
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
@@ -31,9 +31,12 @@ namespace FoodPal.Notifications.Application.Handlers
 
         public async Task<bool> Handle(NewNotificationAddedCommand request, CancellationToken cancellationToken)
         {
-            var notificationModel = this._mapper.Map<Domain.Notification>(request);
+            var notificationModel = this._mapper.Map<Notification>(request);
 
             this._validator.ValidateAndThrowEx(request);
+
+            notificationModel.CreateAt = DateTimeOffset.Now;
+            notificationModel.ModifiedAt = DateTimeOffset.Now;
 
             // save to db
             this._unitOfWork.GetRepository<Domain.Notification>().Create(notificationModel);

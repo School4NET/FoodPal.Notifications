@@ -23,7 +23,15 @@ namespace FoodPal.Notifications.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(UserDto userDto)
         { 
-            await this._publishEndpoint.Publish<INewUserAdded>(userDto);
+            await this._publishEndpoint.Publish<INewUserAddedEvent>(userDto);
+
+            return Accepted();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser(UserDto userDto)
+        {
+            await this._publishEndpoint.Publish<IUserUpdatedEvent>(userDto);
 
             return Accepted();
         }
