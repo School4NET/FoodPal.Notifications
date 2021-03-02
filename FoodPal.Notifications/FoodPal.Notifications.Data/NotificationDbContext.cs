@@ -33,7 +33,8 @@ namespace FoodPal.Notifications.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(x => x.Id);
+            modelBuilder.Entity<User>().Property(x => x.Id).IsRequired();
+            modelBuilder.Entity<User>().HasKey(x => x.Email);
             modelBuilder.Entity<User>().Property(x => x.Email).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<User>().HasIndex(x => x.Email).IsUnique();
             modelBuilder.Entity<User>().Property(x => x.PhoneNo).IsRequired();

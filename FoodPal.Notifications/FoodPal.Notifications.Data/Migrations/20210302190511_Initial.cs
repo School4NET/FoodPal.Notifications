@@ -11,16 +11,15 @@ namespace FoodPal.Notifications.Data.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,6 +31,7 @@ namespace FoodPal.Notifications.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(255)", nullable: false),
                     CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -44,17 +44,17 @@ namespace FoodPal.Notifications.Data.Migrations
                 {
                     table.PrimaryKey("PK_Notification", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notification_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Notification_User_UserEmail",
+                        column: x => x.UserEmail,
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notification_UserId",
+                name: "IX_Notification_UserEmail",
                 table: "Notification",
-                column: "UserId");
+                column: "UserEmail");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Email",
