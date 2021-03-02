@@ -68,6 +68,8 @@ namespace FoodPal.Notifications.Processor
             services.AddScoped<UserUpdatedConsumer>();
             services.AddScoped<NotificationViewedConsumer>();
             services.AddScoped<UserNotificationsRequestedConsumer>();
+            services.AddScoped<DeliveryAddedConsumer>();
+            services.AddScoped<DeliveryCompletedConsumer>();
 
             services.AddMassTransit(configuration => {
                 configuration.UsingAzureServiceBus((context, config) =>
@@ -87,7 +89,14 @@ namespace FoodPal.Notifications.Processor
                         e.Consumer(() => context.GetService<NewNotificationAddedConsumer>());
                         e.Consumer(() => context.GetService<NotificationViewedConsumer>());
                         e.Consumer(() => context.GetService<UserNotificationsRequestedConsumer>());
-                    }); 
+                    });
+
+                    config.ReceiveEndpoint("notifications-delivery-queue", e =>
+                    {
+                        // register consumer 
+                        e.Consumer(() => context.GetService<DeliveryCompletedConsumer>());
+                        e.Consumer(() => context.GetService<DeliveryAddedConsumer>());
+                    });
                 });
             });
         }

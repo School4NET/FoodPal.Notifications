@@ -11,6 +11,8 @@ namespace FoodPal.Notifications.Mappers
     {
         public NotificationMapper()
         {
+            this.CreateMap<IDeliveryAddedEvent, NewNotificationAddedCommand>();
+            this.CreateMap<IDeliveryCompletedEvent, NewNotificationAddedCommand>();
             this.CreateMap<INewNotificationAddedEvent, NewNotificationAddedCommand>();
             this.CreateMap<NewNotificationAddedCommand, Notification>();
 
